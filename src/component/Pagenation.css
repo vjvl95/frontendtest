@@ -1,0 +1,38 @@
+.buttonNumber {
+  width: 50px;
+  height: 50px;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  background-color: #bfdbfe;
+  color: #000000;
+  font-size: 1rem;
+  border: none;
+  line-height: 1.5rem;
+  border-radius: 150px;
+  cursor: pointer;
+}
+.buttonNumber:hover {
+  color: #1f975d;
+  font-weight: 600;
+}
+
+.buttonNav {
+  display: flex;
+  margin: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.selectButton {
+  width: 50px;
+  height: 50px;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  background-color: #1f975d;
+  color: #000000;
+  font-size: 1rem;
+  border: none;
+  line-height: 1.5rem;
+  border-radius: 150px;
+  cursor: pointer;
+}
