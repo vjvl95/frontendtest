@@ -1,9 +1,15 @@
-.contanier {
+.headercontanier {
   width: 100%;
   background-color: white;
   margin-top: 15px;
   border-radius: 5px;
   font-weight: 600;
+  display: flex;
+  min-height: 80px;
+  align-items: center;
+}
+.headertext {
+  margin-right: 200px;
 }
 .line {
   border-top: 1px solid rgb(207, 205, 205);
