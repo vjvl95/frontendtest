@@ -1,3 +1,4 @@
+import React from 'react';
 import './ListTable.css';
 
 interface item {
@@ -15,7 +16,6 @@ interface List {
 }
 
 export default function ListTable({ productList }: List) {
-  console.log(productList);
   return (
     <div className='tablecontainer'>
       <table style={{ width: '100%' }}>
@@ -38,7 +38,11 @@ export default function ListTable({ productList }: List) {
                 <td>{v.id}</td>
                 <td>{v.title}</td>
                 <td>{v.brand}</td>
-                <td>{v.description}</td>
+                <td>
+                  {v.description.length > 40
+                    ? v.description.slice(0, 40) + '....'
+                    : v.description}
+                </td>
                 <td>{v.price}</td>
                 <td>{v.rating}</td>
                 <td>{v.stock}</td>
