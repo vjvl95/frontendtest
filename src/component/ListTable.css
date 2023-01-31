@@ -1,0 +1,28 @@
+.tablecontainer {
+  background-color: wheat;
+  border-radius: 10px;
+}
+.tableItem {
+  text-align: center;
+}
+/* .firstCol {
+  width: 10%;
+}
+.secondCol {
+  width: 10%;
+}
+.thridCol {
+  width: 25%;
+}
+.fourCol {
+  width: 30%;
+}
+.fiveCol {
+  width: 15%;
+}
+.sixCol {
+  width: 5%;
+}
+.sevenCol {
+  width: 5%;
+} */
