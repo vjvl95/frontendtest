@@ -1,18 +1,11 @@
 import './Header.css';
-import { Dispatch, SetStateAction } from 'react';
 import React, { KeyboardEvent } from 'react';
-import { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { changeFilter, changeSearchWord } from '../store/searchSlice';
-interface props {
-  setSearchCategory: Dispatch<SetStateAction<string>>;
-  setSearchInput: Dispatch<SetStateAction<string>>;
-  searchCategory: string;
-  searchInput: string;
-  getDataAPI: () => void;
-}
+import { changePageNumber } from '../store/paginationSlice';
 
-export default function Header({ getDataAPI }: props) {
+export default function Header() {
   const [searchInput, setSearchInput] = useState('');
   const [searchCategory, setSearchCategory] = useState('');
   const dispatch = useDispatch();
@@ -22,14 +15,15 @@ export default function Header({ getDataAPI }: props) {
   };
   const searchBoxChange = (e: React.ChangeEvent<{ value: string }>) => {
     setSearchInput(e.target.value);
-    dispatch(changeSearchWord(e.target.value));
   };
   const searchOnClick = () => {
-    getDataAPI();
+    dispatch(changeSearchWord(searchInput));
+    dispatch(changePageNumber(1));
   };
   const keyCheck = (e: KeyboardEvent<HTMLImageElement>) => {
     if (e.key === 'Enter') {
-      getDataAPI();
+      dispatch(changeSearchWord(searchInput));
+      dispatch(changePageNumber(1));
     }
   };
   return (
