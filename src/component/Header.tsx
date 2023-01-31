@@ -1,19 +1,39 @@
 import './Header.css';
 import { Dispatch, SetStateAction } from 'react';
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
 interface props {
-  setSearchCategory: Dispatch<SetStateAction<any>>;
+  setSearchCategory: Dispatch<SetStateAction<string>>;
+  setSearchInput: Dispatch<SetStateAction<string>>;
   searchCategory: string;
+  searchInput: string;
+  getDataAPI: () => void;
 }
 
-export default function Header({ setSearchCategory, searchCategory }: props) {
+export default function Header({
+  setSearchCategory,
+  searchCategory,
+  searchInput,
+  setSearchInput,
+  getDataAPI,
+}: props) {
   const onChangeHander = (e: React.ChangeEvent<{ value: string }>) => {
     setSearchCategory(e.target.value);
+  };
+  const searchBoxChange = (e: React.ChangeEvent<{ value: string }>) => {
+    setSearchInput(e.target.value);
+  };
+  const searchOnClick = () => {
+    getDataAPI();
+  };
+  const keyCheck = (e: KeyboardEvent<HTMLImageElement>) => {
+    if (e.key === 'Enter') {
+      getDataAPI();
+    }
   };
   return (
     <div className='headercontanier'>
       <div className='headertext'>상품 검색</div>
-      <div className='searchDiv'>
+      <div className='searchDiv' onKeyDown={keyCheck}>
         <select
           style={{
             marginRight: '30px',
@@ -35,7 +55,12 @@ export default function Header({ setSearchCategory, searchCategory }: props) {
             width: '300px',
             height: '40px',
           }}
+          defaultValue={searchInput}
+          onChange={searchBoxChange}
         ></input>
+        <button className='sss' onClick={searchOnClick}>
+          조회
+        </button>
       </div>
     </div>
   );
