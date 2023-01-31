@@ -1,5 +1,5 @@
-import React from 'react';
-import { useCallback, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePageNumber, changeLimitNumber } from '../store/paginationSlice';
 import { selectQueryParams } from '../store/store';
@@ -9,30 +9,31 @@ import './Pagination.css';
 export default function Pagination({ total }: any) {
   const dispatch = useDispatch();
 
-  const [limit, setLimit] = useState<number>(
-    parseInt(sessionStorage.getItem('limit')) || 10
-  );
-  const [page, setPage] = useState<number>(
-    parseInt(sessionStorage.getItem('page')) || 1
-  );
-  console.log(page);
+  const page = useSelector(selectQueryParams)[1];
+  const limit = useSelector(selectQueryParams)[0];
+
+  useEffect(() => {
+    if (sessionStorage.getItem('page') !== null) {
+      dispatch(changePageNumber(parseInt(sessionStorage.getItem('page'))));
+    }
+    if (sessionStorage.getItem('limit') !== null) {
+      dispatch(changeLimitNumber(parseInt(sessionStorage.getItem('limit'))));
+    }
+  }, []);
   const totalPage = Math.ceil(total / limit);
   const onLeftClick = useCallback(() => {
     if (page === 1) return;
-    setPage(page - 1);
     dispatch(changePageNumber(page - 1));
   }, [page, limit]);
 
   const onRightClick = useCallback(() => {
     if (page === totalPage) return;
-    setPage(page + 1);
     dispatch(changePageNumber(page + 1));
   }, [page, limit, totalPage]);
 
   const onNumberClick = useCallback(
     (e: any) => {
       const { innerText: clickNumber } = e.target;
-      setPage(+clickNumber);
       dispatch(changePageNumber(+clickNumber));
     },
     [limit, page]
@@ -41,9 +42,6 @@ export default function Pagination({ total }: any) {
   const onChangeHander = (e: React.ChangeEvent<{ value: string }>) => {
     dispatch(changeLimitNumber(parseInt(e.target.value)));
     dispatch(changePageNumber(1));
-
-    setLimit(parseInt(e.target.value));
-    setPage(1);
   };
 
   const numPages = Math.ceil(total / limit);
