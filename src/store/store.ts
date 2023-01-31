@@ -9,3 +9,9 @@ export const store = configureStore({
     pagination: paginationReducer,
   },
 });
+export const selectQueryParams = (state: any) => [
+  state.pagination.limit,
+  state.pagination.page,
+  state.search.searchWord,
+  state.search.filter,
+];

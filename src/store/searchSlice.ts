@@ -16,13 +16,12 @@ const searchSlice = createSlice({
   reducers: {
     changeFilter(state, action) {
       state.filter = action.payload;
-      console.log(action.payload);
       sessionStorage.setItem('filter', action.payload);
     },
     changeSearchWord(state, action) {
       state.searchWord = action.payload;
-      console.log(action.payload);
       sessionStorage.setItem('searchWord', action.payload);
+      sessionStorage.setItem('page', String(1));
     },
   },
 });

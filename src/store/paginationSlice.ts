@@ -21,7 +21,6 @@ const paginationSlice = createSlice({
     changeLimitNumber(state, action) {
       state.limit = action.payload;
       sessionStorage.setItem('limit', action.payload);
-      console.log(action.payload);
     },
   },
 });

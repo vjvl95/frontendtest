@@ -1,17 +1,22 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePageNumber, changeLimitNumber } from '../store/paginationSlice';
+import { selectQueryParams } from '../store/store';
 
 import './Pagination.css';
 
 export default function Pagination({ total }: any) {
   const dispatch = useDispatch();
-  const [limit, setLimit] = useState<number>(10);
-  const [page, setPage] = useState<number>(1);
+
+  const [limit, setLimit] = useState<number>(
+    parseInt(sessionStorage.getItem('limit')) || 10
+  );
+  const [page, setPage] = useState<number>(
+    parseInt(sessionStorage.getItem('page')) || 1
+  );
+  console.log(page);
   const totalPage = Math.ceil(total / limit);
-  const totalShowPage = Math.ceil(totalPage);
   const onLeftClick = useCallback(() => {
     if (page === 1) return;
     setPage(page - 1);
@@ -30,7 +35,7 @@ export default function Pagination({ total }: any) {
       setPage(+clickNumber);
       dispatch(changePageNumber(+clickNumber));
     },
-    [limit]
+    [limit, page]
   );
 
   const onChangeHander = (e: React.ChangeEvent<{ value: string }>) => {
@@ -53,7 +58,7 @@ export default function Pagination({ total }: any) {
         <button onClick={onLeftClick} disabled={page === 1}>
           &lt;
         </button>
-        {Array(totalShowPage)
+        {Array(totalPage)
           .fill(0)
           .map((_, i) =>
             page === i + 1 ? (
