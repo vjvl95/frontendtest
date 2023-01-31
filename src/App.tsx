@@ -7,30 +7,23 @@ import Pagination from './component/Pagination';
 import { useSelector } from 'react-redux';
 import { selectQueryParams } from './store/store';
 
+import aa from './utils/isSessionExistence';
 export default function App() {
   const [productList, setProductList] = useState<any>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
 
-  let [limit, page, searchWord, filter] = useSelector(selectQueryParams);
+  const [limit, page, searchWord, filter] = useSelector(selectQueryParams);
 
-  if (parseInt(sessionStorage.getItem('limit'))) {
-    limit = parseInt(sessionStorage.getItem('limit'));
-  }
-
-  if (parseInt(sessionStorage.getItem('page'))) {
-    page = parseInt(sessionStorage.getItem('page'));
-  }
-
-  if (sessionStorage.getItem('searchWord')) {
-    searchWord = sessionStorage.getItem('searchWord');
-  }
-  if (sessionStorage.getItem('filter')) {
-    filter = sessionStorage.getItem('filter');
-  }
-
+  const [storedLimit, storedPage, storedSearchWord, storedFilter] = aa({
+    limit,
+    page,
+    searchWord,
+    filter,
+  });
+  console.log(storedLimit, storedPage, storedSearchWord, storedFilter, 3);
   const getDataAPI = async () => {
-    const requestURL = `https://dummyjson.com/products/search?q=${searchWord}&limit=${limit}&skip=${
-      limit * (page - 1)
+    const requestURL = `https://dummyjson.com/products/search?q=${searchWord}&limit=${storedLimit}&skip=${
+      +storedLimit * (+storedPage - 1)
     }`;
 
     const res = await fetch(requestURL);
@@ -42,11 +35,10 @@ export default function App() {
 
   useEffect(() => {
     getDataAPI();
-    console.log(limit, page, searchWord, filter);
-  }, [limit, page, searchWord, filter]);
+  }, [storedLimit, storedPage, storedSearchWord, storedFilter]);
   return (
     <div className='container'>
-      <Header getDataAPI={getDataAPI} />
+      <Header />
       <section className='totalsection'>
         검색된 데이터 : {totalCount} 건
       </section>
