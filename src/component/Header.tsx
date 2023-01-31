@@ -1,6 +1,9 @@
 import './Header.css';
 import { Dispatch, SetStateAction } from 'react';
 import React, { KeyboardEvent } from 'react';
+import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeFilter, changeSearchWord } from '../store/searchSlice';
 interface props {
   setSearchCategory: Dispatch<SetStateAction<string>>;
   setSearchInput: Dispatch<SetStateAction<string>>;
@@ -9,18 +12,17 @@ interface props {
   getDataAPI: () => void;
 }
 
-export default function Header({
-  setSearchCategory,
-  searchCategory,
-  searchInput,
-  setSearchInput,
-  getDataAPI,
-}: props) {
+export default function Header({ getDataAPI }: props) {
+  const [searchInput, setSearchInput] = useState('');
+  const [searchCategory, setSearchCategory] = useState('');
+  const dispatch = useDispatch();
   const onChangeHander = (e: React.ChangeEvent<{ value: string }>) => {
     setSearchCategory(e.target.value);
+    dispatch(changeFilter(e.target.value));
   };
   const searchBoxChange = (e: React.ChangeEvent<{ value: string }>) => {
     setSearchInput(e.target.value);
+    dispatch(changeSearchWord(e.target.value));
   };
   const searchOnClick = () => {
     getDataAPI();
@@ -58,7 +60,7 @@ export default function Header({
           defaultValue={searchInput}
           onChange={searchBoxChange}
         ></input>
-        <button className='sss' onClick={searchOnClick}>
+        <button className='clickbox' onClick={searchOnClick}>
           조회
         </button>
       </div>

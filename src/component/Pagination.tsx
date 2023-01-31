@@ -1,49 +1,45 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changePageNumber, changeLimitNumber } from '../store/paginationSlice';
+
 import './Pagination.css';
 
-export default function Pagenation({
-  total,
-  limit,
-  page,
-  setPage,
-  setLimit,
-}: any) {
-  const [showPages, setShowPages] = useState(Math.ceil(page / 3));
+export default function Pagination({ total }: any) {
+  const dispatch = useDispatch();
+  const [limit, setLimit] = useState<number>(10);
+  const [page, setPage] = useState<number>(1);
   const totalPage = Math.ceil(total / limit);
   const totalShowPage = Math.ceil(totalPage);
-  console.log(limit, page, showPages, totalPage, totalShowPage);
-
   const onLeftClick = useCallback(() => {
     if (page === 1) return;
     setPage(page - 1);
-    setShowPages(Math.ceil(page - 1) / 3);
+    dispatch(changePageNumber(page - 1));
   }, [page, limit]);
 
   const onRightClick = useCallback(() => {
     if (page === totalPage) return;
-    setShowPages(Math.ceil(page + 1) / 3);
     setPage(page + 1);
+    dispatch(changePageNumber(page + 1));
   }, [page, limit, totalPage]);
 
   const onNumberClick = useCallback(
     (e: any) => {
       const { innerText: clickNumber } = e.target;
-      setShowPages(Math.ceil(clickNumber) / 3);
       setPage(+clickNumber);
+      dispatch(changePageNumber(+clickNumber));
     },
     [limit]
   );
 
   const onChangeHander = (e: React.ChangeEvent<{ value: string }>) => {
-    setLimit(e.target.value);
+    dispatch(changeLimitNumber(parseInt(e.target.value)));
+    dispatch(changePageNumber(1));
+
+    setLimit(parseInt(e.target.value));
     setPage(1);
   };
-
-  useEffect(() => {
-    setShowPages(Math.ceil(page));
-  }, [page]);
 
   const numPages = Math.ceil(total / limit);
   return (
