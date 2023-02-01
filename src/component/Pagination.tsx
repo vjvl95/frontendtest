@@ -20,7 +20,9 @@ export default function Pagination({ total }: any) {
       dispatch(changeLimitNumber(parseInt(sessionStorage.getItem('limit'))));
     }
   }, []);
+
   const totalPage = Math.ceil(total / limit);
+
   const onLeftClick = useCallback(() => {
     if (page === 1) return;
     dispatch(changePageNumber(page - 1));
@@ -48,7 +50,7 @@ export default function Pagination({ total }: any) {
   return (
     <>
       <nav className='buttonNav'>
-        <select onChange={onChangeHander} defaultValue={limit}>
+        <select onChange={onChangeHander} value={limit}>
           <option value='10'>10</option>
           <option value='20'>20</option>
           <option value='50'>50</option>

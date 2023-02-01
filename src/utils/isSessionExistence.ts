@@ -11,8 +11,6 @@ export default function isSessionExistence({
   searchWord,
   filter,
 }: props) {
-  console.log(limit, page, searchWord, filter, 1);
-
   if (parseInt(sessionStorage.getItem('limit'))) {
     limit = parseInt(sessionStorage.getItem('limit'));
   }
@@ -28,6 +26,5 @@ export default function isSessionExistence({
   if (sessionStorage.getItem('filter')) {
     filter = sessionStorage.getItem('filter');
   }
-  console.log(limit, page, searchWord, filter, 2);
   return [limit, page, searchWord, filter];
 }

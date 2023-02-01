@@ -10,9 +10,7 @@ interface List {
 export default function ListTable({ productList }: List) {
   const limit = useSelector(selectQueryParams)[0];
   const page = useSelector(selectQueryParams)[1];
-
   const offset = (page - 1) * limit;
-  console.log(offset);
   return (
     <div className='tablecontainer'>
       <table style={{ width: '100%' }}>
