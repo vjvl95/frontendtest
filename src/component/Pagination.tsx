@@ -47,6 +47,7 @@ export default function Pagination({ total }: any) {
   };
 
   const numPages = Math.ceil(total / limit);
+
   return (
     <>
       <nav className='buttonNav'>
@@ -55,7 +56,11 @@ export default function Pagination({ total }: any) {
           <option value='20'>20</option>
           <option value='50'>50</option>
         </select>
-        <button onClick={onLeftClick} disabled={page === 1}>
+        <button
+          className='leftRightButton'
+          onClick={onLeftClick}
+          disabled={page === 1}
+        >
           &lt;
         </button>
         {Array(totalPage)
@@ -79,7 +84,11 @@ export default function Pagination({ total }: any) {
               </button>
             )
           )}
-        <button onClick={onRightClick} disabled={page === numPages}>
+        <button
+          className='leftRightButton'
+          onClick={onRightClick}
+          disabled={page === numPages || total === 0}
+        >
           &gt;
         </button>
       </nav>
