@@ -9,7 +9,7 @@ export default function Header() {
   const [searchInput, setSearchInput] = useState(
     sessionStorage.getItem('searchWord') || ''
   );
-  console.log(sessionStorage.getItem('searchWord'));
+
   const [searchCategory, setSearchCategory] = useState(
     sessionStorage.getItem('filter') || ''
   );
@@ -45,7 +45,7 @@ export default function Header() {
           onChange={onChangeHander}
           value={searchCategory}
         >
-          <option value='all'>전체</option>
+          <option value='total'>전체</option>
           <option value='title'>상품명</option>
           <option value='brand'>브랜드</option>
           <option value='description'>상품내용</option>
