@@ -5,24 +5,9 @@
 .tableItem {
   text-align: center;
 }
-/* .firstCol {
-  width: 10%;
+.nodata {
+  display: flex;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 700;
 }
-.secondCol {
-  width: 10%;
-}
-.thridCol {
-  width: 25%;
-}
-.fourCol {
-  width: 30%;
-}
-.fiveCol {
-  width: 15%;
-}
-.sixCol {
-  width: 5%;
-}
-.sevenCol {
-  width: 5%;
-} */

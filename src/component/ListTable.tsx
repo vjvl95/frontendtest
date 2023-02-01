@@ -14,16 +14,7 @@ export default function ListTable({ productList }: List) {
   return (
     <div className='tablecontainer'>
       {productList.length === 0 ? (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            fontSize: '40px',
-            fontWeight: '700',
-          }}
-        >
-          데이터가 존재하지 않습니다.
-        </div>
+        <div className='nodata'>데이터가 존재하지 않습니다.</div>
       ) : (
         <table style={{ width: '100%' }}>
           <thead className='tablehead'>
