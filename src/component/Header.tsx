@@ -6,12 +6,18 @@ import { changeFilter, changeSearchWord } from '../store/searchSlice';
 import { changePageNumber } from '../store/paginationSlice';
 
 export default function Header() {
-  const [searchInput, setSearchInput] = useState('');
-  const [searchCategory, setSearchCategory] = useState('');
+  const [searchInput, setSearchInput] = useState(
+    sessionStorage.getItem('searchWord') || ''
+  );
+  console.log(sessionStorage.getItem('searchWord'));
+  const [searchCategory, setSearchCategory] = useState(
+    sessionStorage.getItem('filter') || ''
+  );
   const dispatch = useDispatch();
   const onChangeHander = (e: React.ChangeEvent<{ value: string }>) => {
     setSearchCategory(e.target.value);
     dispatch(changeFilter(e.target.value));
+    dispatch(changePageNumber(1));
   };
   const searchBoxChange = (e: React.ChangeEvent<{ value: string }>) => {
     setSearchInput(e.target.value);
@@ -37,7 +43,7 @@ export default function Header() {
             border: '1px solid rgb(233, 231, 231)',
           }}
           onChange={onChangeHander}
-          defaultValue={searchCategory}
+          value={searchCategory}
         >
           <option value='all'>전체</option>
           <option value='title'>상품명</option>
@@ -51,7 +57,7 @@ export default function Header() {
             width: '300px',
             height: '40px',
           }}
-          defaultValue={searchInput}
+          value={searchInput}
           onChange={searchBoxChange}
         ></input>
         <button className='clickbox' onClick={searchOnClick}>

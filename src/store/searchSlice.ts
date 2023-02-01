@@ -16,6 +16,8 @@ const searchSlice = createSlice({
   reducers: {
     changeFilter(state, action) {
       state.filter = action.payload;
+      sessionStorage.setItem('page', String(1));
+
       sessionStorage.setItem('filter', action.payload);
     },
     changeSearchWord(state, action) {

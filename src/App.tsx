@@ -7,35 +7,54 @@ import Pagination from './component/Pagination';
 import { useSelector } from 'react-redux';
 import { selectQueryParams } from './store/store';
 
-import aa from './utils/isSessionExistence';
+import isSessionExistence from './utils/isSessionExistence';
 export default function App() {
   const [productList, setProductList] = useState<any>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
 
   const [limit, page, searchWord, filter] = useSelector(selectQueryParams);
 
-  const [storedLimit, storedPage, storedSearchWord, storedFilter] = aa({
-    limit,
-    page,
-    searchWord,
-    filter,
-  });
+  const [storedLimit, storedPage, storedSearchWord, storedFilter] =
+    isSessionExistence({
+      limit,
+      page,
+      searchWord,
+      filter,
+    });
   console.log(storedLimit, storedPage, storedSearchWord, storedFilter, 3);
   const getDataAPI = async () => {
-    const requestURL = `https://dummyjson.com/products/search?q=${searchWord}&limit=${storedLimit}&skip=${
-      +storedLimit * (+storedPage - 1)
-    }`;
-
+    const requestURL = 'https://dummyjson.com/products?limit=100';
     const res = await fetch(requestURL);
     const result = await res.json();
-
-    setProductList(result.products);
-    setTotalCount(result.total);
+    let fiterArray = [];
+    if (storedFilter !== 'all') {
+      if (storedFilter === 'brand') {
+        fiterArray = result.products.filter((item: any) =>
+          item.brand.includes(storedSearchWord)
+        );
+        console.log(fiterArray);
+      } else if (storedFilter === 'title') {
+        fiterArray = result.products.filter((item: any) =>
+          item.title.includes(storedSearchWord)
+        );
+        console.log(fiterArray);
+      } else if (storedFilter === 'description') {
+        fiterArray = result.products.filter((item: any) =>
+          item.description.includes(storedSearchWord)
+        );
+        console.log(fiterArray);
+      }
+      setProductList(fiterArray);
+      setTotalCount(fiterArray.length);
+    } else {
+      setProductList(result.products);
+      setTotalCount(result.total);
+    }
   };
 
   useEffect(() => {
     getDataAPI();
-  }, [storedLimit, storedPage, storedSearchWord, storedFilter]);
+  }, [storedSearchWord, storedFilter]);
   return (
     <div className='container'>
       <Header />
