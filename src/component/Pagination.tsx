@@ -34,8 +34,8 @@ export default function Pagination({ total }: any) {
   }, [page, limit, totalPage]);
 
   const onNumberClick = useCallback(
-    (e: any) => {
-      const { innerText: clickNumber } = e.target;
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const { innerText: clickNumber } = e.target as HTMLLIElement;
       dispatch(changePageNumber(+clickNumber));
     },
     [limit, page]

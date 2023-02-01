@@ -8,9 +8,10 @@ import { useSelector } from 'react-redux';
 import { selectQueryParams } from './store/store';
 
 import isSessionExistence from './utils/isSessionExistence';
-import { iteratorSymbol } from 'immer/dist/internal';
+import { Product } from './types/types';
+
 export default function App() {
-  const [productList, setProductList] = useState<any>([]);
+  const [productList, setProductList] = useState<Product[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
 
   const searchWord = useSelector(selectQueryParams)[2];
@@ -35,15 +36,15 @@ export default function App() {
 
     if (storedFilter !== 'total') {
       if (storedFilter === 'brand') {
-        fiterArray = result.products.filter((item: any) =>
+        fiterArray = result.products.filter((item: Product) =>
           item.brand.includes(storedSearchWord)
         );
       } else if (storedFilter === 'title') {
-        fiterArray = result.products.filter((item: any) =>
+        fiterArray = result.products.filter((item: Product) =>
           item.title.includes(storedSearchWord)
         );
       } else if (storedFilter === 'description') {
-        fiterArray = result.products.filter((item: any) =>
+        fiterArray = result.products.filter((item: Product) =>
           item.description.includes(storedSearchWord)
         );
       }

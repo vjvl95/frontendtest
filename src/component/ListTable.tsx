@@ -3,14 +3,13 @@ import { useSelector } from 'react-redux';
 import './ListTable.css';
 import { selectQueryParams } from '../store/store';
 
-interface List {
-  productList: any;
-}
+import { List, Product } from '../types/types';
 
 export default function ListTable({ productList }: List) {
   const limit = useSelector(selectQueryParams)[0];
   const page = useSelector(selectQueryParams)[1];
   const offset = (page - 1) * limit;
+  console.log(productList);
   return (
     <div className='tablecontainer'>
       {productList.length === 0 ? (
@@ -30,7 +29,7 @@ export default function ListTable({ productList }: List) {
           </thead>
 
           <tbody className='tablebody'>
-            {productList.slice(offset, offset + limit).map((v: any) => {
+            {productList.slice(offset, offset + limit).map((v: Product) => {
               return (
                 <tr className='tableItem'>
                   <td>{v.id}</td>
