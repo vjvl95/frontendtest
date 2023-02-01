@@ -8,41 +8,44 @@ import { useSelector } from 'react-redux';
 import { selectQueryParams } from './store/store';
 
 import isSessionExistence from './utils/isSessionExistence';
+import { iteratorSymbol } from 'immer/dist/internal';
 export default function App() {
   const [productList, setProductList] = useState<any>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
 
-  const [limit, page, searchWord, filter] = useSelector(selectQueryParams);
+  const searchWord = useSelector(selectQueryParams)[2];
+  const filter = useSelector(selectQueryParams)[3];
 
-  const [storedLimit, storedPage, storedSearchWord, storedFilter] =
-    isSessionExistence({
-      limit,
-      page,
-      searchWord,
-      filter,
-    });
-  console.log(storedLimit, storedPage, storedSearchWord, storedFilter, 3);
+  const [storedSearchWord, storedFilter] = isSessionExistence({
+    searchWord,
+    filter,
+  });
+
   const getDataAPI = async () => {
-    const requestURL = 'https://dummyjson.com/products?limit=100';
+    let requestURL = '';
+    if (storedFilter === 'total' && storedSearchWord !== '') {
+      requestURL = `https://dummyjson.com/products/search?q=${storedSearchWord}&limit=100&`;
+    } else {
+      requestURL = 'https://dummyjson.com/products?limit=100';
+    }
+
     const res = await fetch(requestURL);
     const result = await res.json();
     let fiterArray = [];
-    if (storedFilter !== 'all') {
+
+    if (storedFilter !== 'total') {
       if (storedFilter === 'brand') {
         fiterArray = result.products.filter((item: any) =>
           item.brand.includes(storedSearchWord)
         );
-        console.log(fiterArray);
       } else if (storedFilter === 'title') {
         fiterArray = result.products.filter((item: any) =>
           item.title.includes(storedSearchWord)
         );
-        console.log(fiterArray);
       } else if (storedFilter === 'description') {
         fiterArray = result.products.filter((item: any) =>
           item.description.includes(storedSearchWord)
         );
-        console.log(fiterArray);
       }
       setProductList(fiterArray);
       setTotalCount(fiterArray.length);
@@ -51,7 +54,6 @@ export default function App() {
       setTotalCount(result.total);
     }
   };
-
   useEffect(() => {
     getDataAPI();
   }, [storedSearchWord, storedFilter]);
