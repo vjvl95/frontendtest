@@ -42,5 +42,9 @@ https://user-images.githubusercontent.com/62174495/216211355-34c9d3c8-ce18-45c0-
 
 https://user-images.githubusercontent.com/62174495/216211637-8bb877bc-941f-44b2-88de-832fcaf07ccf.mp4
 
+### 커밋 컨벤션
 
-
+[feat] 기능 및 코드 추가<br/>
+[fix] 버그 수정<br/>
+[refactor] 코드 리팩토링<br/>
+[style] UI/스타일 파일 추가/수정<br/>
