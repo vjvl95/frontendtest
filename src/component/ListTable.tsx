@@ -5,14 +5,16 @@ import { selectQueryParams } from '../store/store';
 
 import { List, Product } from '../types/types';
 
-export default function ListTable({ productList }: List) {
+export default function ListTable({ productList, Loading }: List) {
   const limit = useSelector(selectQueryParams)[0];
   const page = useSelector(selectQueryParams)[1];
   const offset = (page - 1) * limit;
   console.log(productList);
   return (
     <div className='tablecontainer'>
-      {productList.length === 0 ? (
+      {Loading ? (
+        <div className='loading'>LOADING......</div>
+      ) : productList.length === 0 ? (
         <div className='nodata'>데이터가 존재하지 않습니다.</div>
       ) : (
         <table style={{ width: '100%' }}>
