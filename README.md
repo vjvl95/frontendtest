@@ -1,4 +1,12 @@
 ## 블록 오디세이 제출 과제 홍주완
+#프로젝트 실행방법
+```
+git clone https://github.com/vjvl95/frontendtest
+cd frontedtest
+npm install
+npm start
+```
+
 # 사용 가능 라이브러리
 - React v17 / v18 (Use React hooks, no class component)
 - react-query v4
