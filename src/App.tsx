@@ -57,6 +57,9 @@ export default function App() {
 
   return (
     <div className='container'>
+      <div className='headtitle'>블록오디세이 코딩테스트 과제 제출</div>
+      <div className='headtitle'>홍주완 지원자</div>
+
       <Header />
       <section className='totalsection'>
         검색된 데이터 : {totalCount} 건

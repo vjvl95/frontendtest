@@ -9,3 +9,10 @@
   margin: 30px 0px;
   font-weight: 700;
 }
+.headtitle {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: 500;
+}
