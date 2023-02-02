@@ -1,46 +1,26 @@
-# Getting Started with Create React App
+## 블록 오디세이 제출 과제 홍주완
+# 사용 가능 라이브러리
+- React v17 / v18 (Use React hooks, no class component)
+- react-query v4
+- redux-toolkit 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 안내사항
+- 자바스크립트 와 타입스크립트를 통해서 구현하여야 한다.
+- HTML 과 CSS가 허용된다. 다른 CSS UI라이브러리는 사용이 금지된다(bootstrap, material-ui, tailwindcss and styled-components)
+- 상태관리 라이브러리로는 redux-toolkit을 사용한다
+- redux-persist 와 localStorage 사용을 금지한다.
 
-## Available Scripts
+# 요구 사항
+## 리스트 요구사항
+- [ ] 새로고침 한 후에도 리스트가 유지되어야 한다.
+- [ ] 리스트의 컬럼은 [상품번호, 상품명, 브랜드, 상품내용, 가격, 평점, 재고] 순이다.
+- [ ] 총 리스트의 갯수를 명시하여야 한다.
+- [ ] 상품내용의 글자수는 40글자로 제한한다. 40글자가 넘는경우 ... 을 붙인다
 
-In the project directory, you can run:
+## 검색 요구 사항
+- [ ] 검색의 조건의 [전체,상풍명,브랜드,상품내용] 이다.
+- [ ] 검색 조건과 검색키워드는 새로고침 후에도 계속 유지 되어야 한다.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 페이지 네이션 요구 사항
+- [ ] 페이지 마다 나올 리스트 갯수를 정할 수 있어야 한다.[10,20,50]
+- [ ] 페이지 마다 보여줄 리스트 갯수와 페이지 번호는 새로고침 후에도 계속 유지가 되어야 한다.
