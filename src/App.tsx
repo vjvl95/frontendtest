@@ -9,11 +9,12 @@ import { selectQueryParams } from './store/store';
 
 import isSessionExistence from './utils/isSessionExistence';
 import { Product } from './types/types';
+import searchFilter from './utils/searchFilter';
 
 export default function App() {
   const [productList, setProductList] = useState<Product[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
-
+  const [Loading, setLoadig] = useState(true);
   const searchWord = useSelector(selectQueryParams)[2];
   const filter = useSelector(selectQueryParams)[3];
 
@@ -23,6 +24,7 @@ export default function App() {
   });
 
   const getDataAPI = async () => {
+    setLoadig(true);
     let requestURL = '';
     if (storedFilter === 'total' && storedSearchWord !== '') {
       requestURL = `https://dummyjson.com/products/search?q=${storedSearchWord}&limit=100&`;
@@ -34,37 +36,32 @@ export default function App() {
     const result = await res.json();
     let fiterArray = [];
 
+    console.log(result);
     if (storedFilter !== 'total') {
-      if (storedFilter === 'brand') {
-        fiterArray = result.products.filter((item: Product) =>
-          item.brand.includes(storedSearchWord)
-        );
-      } else if (storedFilter === 'title') {
-        fiterArray = result.products.filter((item: Product) =>
-          item.title.includes(storedSearchWord)
-        );
-      } else if (storedFilter === 'description') {
-        fiterArray = result.products.filter((item: Product) =>
-          item.description.includes(storedSearchWord)
-        );
-      }
+      fiterArray = searchFilter({
+        storedFilter,
+        result,
+        storedSearchWord,
+      });
       setProductList(fiterArray);
       setTotalCount(fiterArray.length);
     } else {
       setProductList(result.products);
       setTotalCount(result.total);
     }
+    setLoadig(false);
   };
   useEffect(() => {
     getDataAPI();
   }, [storedSearchWord, storedFilter]);
+
   return (
     <div className='container'>
       <Header />
       <section className='totalsection'>
         검색된 데이터 : {totalCount} 건
       </section>
-      <ListTable productList={productList}></ListTable>
+      <ListTable productList={productList} Loading={Loading}></ListTable>
       <Pagination total={totalCount} />
     </div>
   );
