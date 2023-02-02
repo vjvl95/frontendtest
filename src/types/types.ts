@@ -13,4 +13,5 @@ export interface Product {
 }
 export interface List {
   productList: Product[];
+  Loading: boolean;
 }
