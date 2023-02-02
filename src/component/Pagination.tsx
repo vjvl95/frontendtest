@@ -5,8 +5,10 @@ import { changePageNumber, changeLimitNumber } from '../store/paginationSlice';
 import { selectQueryParams } from '../store/store';
 
 import './Pagination.css';
-
-export default function Pagination({ total }: any) {
+interface PagnationProps {
+  total: number;
+}
+export default function Pagination({ total }: PagnationProps) {
   const dispatch = useDispatch();
 
   const page = useSelector(selectQueryParams)[1];
