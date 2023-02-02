@@ -1,5 +1,5 @@
 ## 블록 오디세이 제출 과제 홍주완
-#프로젝트 실행방법
+# 프로젝트 실행방법
 ```
 git clone https://github.com/vjvl95/frontendtest
 cd frontedtest
